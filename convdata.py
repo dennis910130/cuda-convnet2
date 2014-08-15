@@ -42,7 +42,7 @@ class JPEGBatchLoaderThread(Thread):
 
         jpeg_strs = list(it.chain.from_iterable(rd['data'] for rd in rawdics))
         labels = list(it.chain.from_iterable(rd['labels'] for rd in rawdics))
-        
+        labels = [[j] for j in labels]
         img_mat = n.empty((nc_total * dp.data_mult, dp.inner_pixels * dp.num_colors), dtype=n.float32)
         lab_mat = n.zeros((nc_total, dp.get_num_classes()), dtype=n.float32)
         dp.convnet.libmodel.decodeJpeg(jpeg_strs, img_mat, dp.img_size, dp.inner_size, dp.test, dp.multiview)
